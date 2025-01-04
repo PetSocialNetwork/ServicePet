@@ -14,7 +14,7 @@ namespace ServicePet.WebApi.Models.Requests
         [Required]
         public string Gender { get; set; }
         [Required]
-        public int Years { get; set; }
+        public int Age { get; set; }
         public string? Description { get; set; }
         //фотография
     }

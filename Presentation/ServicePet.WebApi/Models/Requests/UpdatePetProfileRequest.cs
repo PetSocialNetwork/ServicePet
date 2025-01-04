@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿#pragma warning disable CS8618 
+using System.ComponentModel.DataAnnotations;
 
 namespace ServicePet.WebApi.Models.Requests
 {
@@ -15,7 +16,7 @@ namespace ServicePet.WebApi.Models.Requests
         [Required]
         public string Gender { get; set; }
         [Required]
-        public int Years { get; set; }
+        public int Age { get; set; }
         public string? Description { get; set; }
         //фотография
     }

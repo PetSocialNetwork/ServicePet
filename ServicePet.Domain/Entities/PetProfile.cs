@@ -10,7 +10,7 @@ namespace ServicePet.Domain.Entities
         //Возможно сделать как enum
         public string Type { get; set; }
         public string Gender { get; set; }
-        public int Years { get; set; }
+        public int Age { get; set; }
         public string? Description { get; set; }
         //фотография
         protected PetProfile() { }

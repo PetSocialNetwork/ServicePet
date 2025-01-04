@@ -13,12 +13,12 @@ namespace ServicePet.Domain.Services
                 ?? throw new ArgumentException(nameof(petProfileRepository));
         }
 
-        public async Task<Guid> AddPetProfileAsync(PetProfile petProfile, CancellationToken cancellationToken)
+        public async Task<PetProfile> AddPetProfileAsync(PetProfile petProfile, CancellationToken cancellationToken)
         {
             ArgumentNullException.ThrowIfNull(petProfile);
 
             await _petProfileRepository.Add(petProfile, cancellationToken);
-            return petProfile.Id;
+            return petProfile;
         }
 
         public async Task<List<PetProfile>?> GetPetProfilesByAccountIdAsync(Guid id, CancellationToken cancellationToken)
@@ -64,7 +64,7 @@ namespace ServicePet.Domain.Services
             existedProfile.Type = petProfile.Type;
             existedProfile.Gender = petProfile.Gender;
             existedProfile.Description = existedProfile.Description;
-            existedProfile.Years = existedProfile.Years;
+            existedProfile.Age = existedProfile.Age;
 
             await _petProfileRepository.Update(petProfile, cancellationToken);
         }    

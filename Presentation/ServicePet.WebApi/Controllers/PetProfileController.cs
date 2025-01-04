@@ -23,10 +23,11 @@ namespace ServicePet.WebApi.Controllers
         //[ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(UserProfileWithAccountAlreadyExistsException))]
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost("[action]")]
-        public async Task<Guid> AddPetProfileAsync([FromBody] AddPetProfileRequest request, CancellationToken cancellationToken)
+        public async Task<PetProfileResponse> AddPetProfileAsync([FromBody] AddPetProfileRequest request, CancellationToken cancellationToken)
         {
             var petProfile = _mapper.Map<PetProfile>(request);
-            return await _petProfileService.AddPetProfileAsync(petProfile, cancellationToken);
+            var pet = await _petProfileService.AddPetProfileAsync(petProfile, cancellationToken);
+            return _mapper.Map<PetProfileResponse>(pet);
         }
 
         //[ProducesResponseType(StatusCodes.Status200OK)]
