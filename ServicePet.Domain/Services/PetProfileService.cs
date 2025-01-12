@@ -63,10 +63,10 @@ namespace ServicePet.Domain.Services
             existedProfile.Name = petProfile.Name;
             existedProfile.Type = petProfile.Type;
             existedProfile.Gender = petProfile.Gender;
-            existedProfile.Description = existedProfile.Description;
-            existedProfile.Age = existedProfile.Age;
+            existedProfile.Description = petProfile.Description;
+            existedProfile.Age = petProfile.Age;
 
-            await _petProfileRepository.Update(petProfile, cancellationToken);
+            await _petProfileRepository.Update(existedProfile, cancellationToken);
         }    
     }
 }
