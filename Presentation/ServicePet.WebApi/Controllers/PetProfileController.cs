@@ -15,7 +15,7 @@ namespace ServicePet.WebApi.Controllers
         private readonly IMapper _mapper;
         public PetProfileController(PetProfileService petProfileService, IMapper mapper)
         {
-            _petProfileService = petProfileService ?? throw new ArgumentException(nameof(petProfileService));
+            _petProfileService = petProfileService ?? throw new ArgumentException(nameof(petProfileService)); 
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
@@ -31,7 +31,7 @@ namespace ServicePet.WebApi.Controllers
         }
 
         //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(UserProfileNotFoundException))]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(PetProfileNotFoundException))]
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("[action]")]
         public async Task<PetProfileResponse> GetPetProfileByIdAsync([FromQuery] Guid id, CancellationToken cancellationToken)
@@ -41,12 +41,22 @@ namespace ServicePet.WebApi.Controllers
         }
 
         //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(UserProfileNotFoundException))]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(PetProfileNotFoundException))]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPut("[action]")]
+        public async Task UpdatePetProfileAsync(
+            [FromBody] UpdatePetProfileRequest request, CancellationToken cancellationToken)
+        {
+            var petProfile = _mapper.Map<PetProfile>(request);
+            await _petProfileService.UpdatePetProfileAsync(petProfile, cancellationToken);
+        }
+
+        //[ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete("[action]")]
-        public async Task DeletePetProfileAsync([FromQuery] Guid id, CancellationToken cancellationToken)
+        public async Task DeleteAllPetProfilesByAccountIdAsync([FromQuery] Guid accountId, CancellationToken cancellationToken)
         {
-            await _petProfileService.DeletePetProfileAsync(id, cancellationToken);
+            await _petProfileService.DeleteAllPetProfilesByAccountIdAsync(accountId, cancellationToken);   
         }
 
         ////[ProducesResponseType(StatusCodes.Status200OK)]
@@ -56,17 +66,17 @@ namespace ServicePet.WebApi.Controllers
         public async Task<List<PetProfileResponse>> GetPetProfilesByAccountIdAsync([FromBody] Guid accountId, CancellationToken cancellationToken)
         {
             var petProfiles = await _petProfileService.GetPetProfilesByAccountIdAsync(accountId, cancellationToken);
-            return _mapper.Map<List<PetProfileResponse>>(petProfiles);
+            return _mapper.Map<List<PetProfileResponse>>(petProfiles);          
         }
 
         //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(UserProfileNotFoundException))]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(PetProfileNotFoundException))]
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpPut("[action]")]
-        public async Task UpdatePetProfileAsync([FromBody] UpdatePetProfileRequest request, CancellationToken cancellationToken)
+        [HttpDelete("[action]")]
+        public async Task DeletePetProfileAsync([FromQuery] Guid petId, [FromQuery] Guid accountId, CancellationToken cancellationToken)
         {
-            var petProfile = _mapper.Map<PetProfile>(request);
-            await _petProfileService.UpdatePetProfileAsync(petProfile, cancellationToken);
-        }
+            await _petProfileService.DeletePetProfileAsync(petId, cancellationToken);
+     
+        }      
     }
 }

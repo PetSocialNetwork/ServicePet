@@ -18,6 +18,5 @@ namespace ServicePet.WebApi.Models.Responses
         [Required]
         public int Age { get; set; }
         public string? Description { get; set; }
-        //фотография
     }
 }

@@ -25,7 +25,7 @@ namespace ServicePet.Domain.Services
         {
             //TODO: проверять есть ли такой акканут с данным id
             //TODO: сделать удаление всех аккаунтов одновременно
-            return await _petProfileRepository.GetProfilesByAccountIdAsync(id, cancellationToken);
+            return await _petProfileRepository.FindProfilesByAccountIdAsync(id, cancellationToken);
         }
 
         public async Task<PetProfile> GetPetProfileByIdAsync(Guid id, CancellationToken cancellationToken)
@@ -51,6 +51,15 @@ namespace ServicePet.Domain.Services
             await _petProfileRepository.Delete(existedProfile, cancellationToken);
         }
 
+        public async Task DeleteAllPetProfilesByAccountIdAsync(Guid accountId, CancellationToken cancellationToken)
+        {
+            var profiles = await _petProfileRepository.FindProfilesByAccountIdAsync(accountId, cancellationToken);
+            if (profiles != null && profiles.Count != 0)
+            {
+                await _petProfileRepository.DeleteRange(profiles, cancellationToken);
+            }
+        }
+
         public async Task UpdatePetProfileAsync(PetProfile petProfile, CancellationToken cancellationToken)
         {
             ArgumentNullException.ThrowIfNull(petProfile);
@@ -67,6 +76,6 @@ namespace ServicePet.Domain.Services
             existedProfile.Age = petProfile.Age;
 
             await _petProfileRepository.Update(existedProfile, cancellationToken);
-        }    
+        }
     }
 }
