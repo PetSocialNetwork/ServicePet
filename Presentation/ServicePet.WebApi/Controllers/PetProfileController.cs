@@ -59,9 +59,9 @@ namespace ServicePet.WebApi.Controllers
             await _petProfileService.DeleteAllPetProfilesByAccountIdAsync(accountId, cancellationToken);   
         }
 
-        ////[ProducesResponseType(StatusCodes.Status200OK)]
-        ////[ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(UserProfileWithAccountAlreadyExistsException))]
-        ////[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(UserProfileWithAccountAlreadyExistsException))]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost("[action]")]
         public async Task<List<PetProfileResponse>> GetPetProfilesByAccountIdAsync([FromBody] Guid accountId, CancellationToken cancellationToken)
         {
@@ -76,7 +76,6 @@ namespace ServicePet.WebApi.Controllers
         public async Task DeletePetProfileAsync([FromQuery] Guid petId, [FromQuery] Guid accountId, CancellationToken cancellationToken)
         {
             await _petProfileService.DeletePetProfileAsync(petId, cancellationToken);
-     
         }      
     }
 }

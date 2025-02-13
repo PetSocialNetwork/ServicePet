@@ -23,8 +23,6 @@ namespace ServicePet.Domain.Services
 
         public async Task<List<PetProfile>?> GetPetProfilesByAccountIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            //TODO: проверять есть ли такой акканут с данным id
-            //TODO: сделать удаление всех аккаунтов одновременно
             return await _petProfileRepository.FindProfilesByAccountIdAsync(id, cancellationToken);
         }
 
