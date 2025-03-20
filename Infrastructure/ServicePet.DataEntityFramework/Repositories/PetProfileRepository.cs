@@ -8,9 +8,9 @@ namespace ServicePet.DataEntityFramework.Repositories
     {
         public PetProfileRepository(AppDbContext appDbContext) : base(appDbContext) { }
 
-        public async Task<List<PetProfile>?> FindProfilesByAccountIdAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<List<PetProfile>?> FindProfilesAsync(Guid id, CancellationToken cancellationToken)
         {
-            return await Entities.Where(p => p.AccountId == id).ToListAsync(cancellationToken);
+            return await Entities.Where(p => p.ProfileId == id).ToListAsync(cancellationToken);
         }
 
         public async Task<PetProfile?> FindPetProfileAsync(Guid id, CancellationToken cancellationToken)

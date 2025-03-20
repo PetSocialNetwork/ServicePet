@@ -6,7 +6,7 @@ namespace ServicePet.WebApi.Models.Requests
     public class AddPetProfileRequest
     {
         [Required]
-        public Guid AccountId { get; set; }
+        public Guid ProfileId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

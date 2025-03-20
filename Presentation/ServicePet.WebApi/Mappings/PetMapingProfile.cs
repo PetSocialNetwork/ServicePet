@@ -11,7 +11,7 @@ namespace ServicePet.WebApi.Mappings
         {
             CreateMap<AddPetProfileRequest, PetProfile>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
-                .ForMember(dest => dest.AccountId, opt => opt.MapFrom(src => src.AccountId))
+                .ForMember(dest => dest.ProfileId, opt => opt.MapFrom(src => src.ProfileId))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type))
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))

@@ -54,18 +54,18 @@ namespace ServicePet.WebApi.Controllers
         //[ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete("[action]")]
-        public async Task DeleteAllPetProfilesByAccountIdAsync([FromQuery] Guid accountId, CancellationToken cancellationToken)
+        public async Task DeleteAllPetProfilesAsync([FromQuery] Guid profileId, CancellationToken cancellationToken)
         {
-            await _petProfileService.DeleteAllPetProfilesByAccountIdAsync(accountId, cancellationToken);   
+            await _petProfileService.DeleteAllPetProfilesByAccountIdAsync(profileId, cancellationToken);   
         }
 
         //[ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(UserProfileWithAccountAlreadyExistsException))]
         //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost("[action]")]
-        public async Task<List<PetProfileResponse>> GetPetProfilesByAccountIdAsync([FromBody] Guid accountId, CancellationToken cancellationToken)
+        public async Task<List<PetProfileResponse>> GetPetProfilesAsync([FromBody] Guid profileId, CancellationToken cancellationToken)
         {
-            var petProfiles = await _petProfileService.GetPetProfilesByAccountIdAsync(accountId, cancellationToken);
+            var petProfiles = await _petProfileService.GetPetProfilesAsync(profileId, cancellationToken);
             return _mapper.Map<List<PetProfileResponse>>(petProfiles);          
         }
 

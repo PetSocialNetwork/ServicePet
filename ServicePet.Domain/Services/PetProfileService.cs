@@ -21,9 +21,9 @@ namespace ServicePet.Domain.Services
             return petProfile;
         }
 
-        public async Task<List<PetProfile>?> GetPetProfilesByAccountIdAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<List<PetProfile>?> GetPetProfilesAsync(Guid id, CancellationToken cancellationToken)
         {
-            return await _petProfileRepository.FindProfilesByAccountIdAsync(id, cancellationToken);
+            return await _petProfileRepository.FindProfilesAsync(id, cancellationToken);
         }
 
         public async Task<PetProfile> GetPetProfileByIdAsync(Guid id, CancellationToken cancellationToken)
@@ -51,7 +51,7 @@ namespace ServicePet.Domain.Services
 
         public async Task DeleteAllPetProfilesByAccountIdAsync(Guid accountId, CancellationToken cancellationToken)
         {
-            var profiles = await _petProfileRepository.FindProfilesByAccountIdAsync(accountId, cancellationToken);
+            var profiles = await _petProfileRepository.FindProfilesAsync(accountId, cancellationToken);
             if (profiles != null && profiles.Count != 0)
             {
                 await _petProfileRepository.DeleteRange(profiles, cancellationToken);
