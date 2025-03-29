@@ -24,8 +24,8 @@ namespace ServicePet.WebApi.Filters
         {
             return context.Exception switch
             {
-                PetProfileNotFoundException => ("Питомца с данным профилем не существует.", StatusCodes.Status400BadRequest),
-                Exception => ("Неизвестная ошибка.", StatusCodes.Status500InternalServerError),
+                PetProfileNotFoundException => ("Питомца с данным профилем не существует", StatusCodes.Status400BadRequest),
+                Exception => ("Неизвестная ошибка", StatusCodes.Status500InternalServerError),
                 _ => (null, 0)
             };
         }
