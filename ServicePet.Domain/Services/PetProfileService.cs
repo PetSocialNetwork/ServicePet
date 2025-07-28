@@ -13,20 +13,21 @@ namespace ServicePet.Domain.Services
                 ?? throw new ArgumentException(nameof(petProfileRepository));
         }
 
-        public async Task<PetProfile> AddPetProfileAsync(PetProfile petProfile, CancellationToken cancellationToken)
+        public async Task<PetProfile> AddPetProfileAsync
+            (PetProfile petProfile, CancellationToken cancellationToken)
         {
-            ArgumentNullException.ThrowIfNull(petProfile);
-
             await _petProfileRepository.Add(petProfile, cancellationToken);
             return petProfile;
         }
 
-        public async Task<List<PetProfile>?> GetPetProfilesAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<List<PetProfile>?> GetPetProfilesAsync
+            (Guid id, CancellationToken cancellationToken)
         {
             return await _petProfileRepository.FindProfilesAsync(id, cancellationToken);
         }
 
-        public async Task<PetProfile> GetPetProfileByIdAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<PetProfile> GetPetProfileByIdAsync
+            (Guid id, CancellationToken cancellationToken)
         {
             try
             {
@@ -38,18 +39,17 @@ namespace ServicePet.Domain.Services
             }
         }
 
-        public async Task DeletePetProfileAsync(Guid id, CancellationToken cancellationToken)
+        public async Task DeletePetProfileAsync
+            (Guid id, CancellationToken cancellationToken)
         {
-            var existedProfile = await _petProfileRepository.FindPetProfileAsync(id, cancellationToken);
-            if (existedProfile is null)
-            {
-                throw new PetProfileNotFoundException("Питомца с таким профилем не существует.");
-            }
+            var existedProfile = await _petProfileRepository.FindPetProfileAsync(id, cancellationToken)
+                ?? throw new PetProfileNotFoundException("Питомца с таким профилем не существует.");
 
             await _petProfileRepository.Delete(existedProfile, cancellationToken);
         }
 
-        public async Task DeleteAllPetProfilesByAccountIdAsync(Guid accountId, CancellationToken cancellationToken)
+        public async Task DeleteAllPetProfilesByAccountIdAsync
+            (Guid accountId, CancellationToken cancellationToken)
         {
             var profiles = await _petProfileRepository.FindProfilesAsync(accountId, cancellationToken);
             if (profiles != null && profiles.Count != 0)
@@ -58,14 +58,11 @@ namespace ServicePet.Domain.Services
             }
         }
 
-        public async Task UpdatePetProfileAsync(PetProfile petProfile, CancellationToken cancellationToken)
+        public async Task UpdatePetProfileAsync
+            (PetProfile petProfile, CancellationToken cancellationToken)
         {
-            ArgumentNullException.ThrowIfNull(petProfile);
-            var existedProfile = await _petProfileRepository.FindPetProfileAsync(petProfile.Id, cancellationToken);
-            if (existedProfile is null)
-            {
-                throw new PetProfileNotFoundException("Питомца с таким профилем не существует.");
-            }
+            var existedProfile = await _petProfileRepository.FindPetProfileAsync(petProfile.Id, cancellationToken)
+                ?? throw new PetProfileNotFoundException("Питомца с таким профилем не существует.");
 
             existedProfile.Name = petProfile.Name;
             existedProfile.Type = petProfile.Type;
